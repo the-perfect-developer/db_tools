@@ -3,17 +3,9 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPTS_FOLDER="$SCRIPT_DIR/scripts"
 
-declare -A COMMAND_MAP
-COMMAND_MAP["dump"]="dump.sh:Dump a MySQL database"
-COMMAND_MAP["restore"]="restore.sh:Restore a MySQL database from a SQL file"
-
-get_available_commands() {
-    local commands=()
-    for script in "$SCRIPTS_FOLDER"/*.sh; do
-        if [ -f "$script" ]; then
-            basename "$script" .sh
-        fi
-    done
+get_script_description() {
+    local script="$1"
+    grep -m1 "^# @description" "$script" 2>/dev/null | sed 's/^# @description //'
 }
 
 show_help() {
@@ -23,10 +15,13 @@ show_help() {
     echo ""
     echo "Commands:"
     
-    for cmd in "${!COMMAND_MAP[@]}"; do
-        local info="${COMMAND_MAP[$cmd]}"
-        local desc="${info#*:}"
-        printf "  %-12s %s\n" "$cmd" "$desc"
+    for script in "$SCRIPTS_FOLDER"/*.sh; do
+        if [ -f "$script" ] && [ -x "$script" ]; then
+            local cmd=$(basename "$script" .sh)
+            local desc=$(get_script_description "$script")
+            [ -z "$desc" ] && desc="No description available"
+            printf "  %-12s %s\n" "$cmd" "$desc"
+        fi
     done
     
     echo ""
@@ -35,11 +30,10 @@ show_help() {
 
 resolve_script() {
     local cmd="$1"
+    local script="$SCRIPTS_FOLDER/${cmd}.sh"
     
-    if [[ -v COMMAND_MAP[$cmd] ]]; then
-        local info="${COMMAND_MAP[$cmd]}"
-        local script="${info%%:*}"
-        echo "$SCRIPTS_FOLDER/$script"
+    if [ -f "$script" ] && [ -x "$script" ]; then
+        echo "$script"
         return 0
     fi
     
@@ -58,7 +52,7 @@ case "$1" in
         ;;
     *)
         SCRIPT=$(resolve_script "$1")
-        if [ $? -eq 0 ] && [ -x "$SCRIPT" ]; then
+        if [ $? -eq 0 ]; then
             shift
             "$SCRIPT" "$@"
         else

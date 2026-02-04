@@ -1,4 +1,5 @@
 #!/bin/bash
+# @description Dump a MySQL database
 
 show_help() {
     echo "Usage: ./dbtools.sh dump [OPTIONS]"

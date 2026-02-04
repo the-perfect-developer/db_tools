@@ -1,4 +1,5 @@
 #!/bin/bash
+# @description Restore a MySQL database from a SQL file
 
 show_help() {
     echo "Usage: ./dbtools.sh restore [OPTIONS]"
