@@ -119,6 +119,8 @@ case "$1" in
     *)
         SCRIPT=$(resolve_script "$1")
         if [ $? -eq 0 ]; then
+            echo -e "${DIM}dbtools${NC} ${YELLOW}v${VERSION}${NC}"
+            echo ""
             shift
             "$SCRIPT" "$@"
         else

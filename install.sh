@@ -5,7 +5,29 @@ INSTALL_DIR="/usr/local/bin"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXECUTABLE="dbtools"
 
+# Colors
+CYAN='\033[0;36m'
+YELLOW='\033[1;33m'
+DIM='\033[2m'
+NC='\033[0m'
+
+show_banner() {
+    echo -e "${CYAN}"
+    cat << 'EOF'
+     _ _     _              _     
+  __| | |__ | |_ ___   ___ | |___ 
+ / _` | '_ \| __/ _ \ / _ \| / __|
+| (_| | |_) | || (_) | (_) | \__ \
+ \__,_|_.__/ \__\___/ \___/|_|___/
+EOF
+    echo -e "${NC}"
+    echo -e "${DIM}MySQL Database Utilities${NC}"
+    echo -e "${DIM}By Dilan D Chandrajith - The Perfect Developer${NC}"
+    echo ""
+}
+
 show_help() {
+    show_banner
     echo "Install dbtools to system PATH"
     echo ""
     echo "Usage: ./install.sh [OPTIONS]"
@@ -15,12 +37,13 @@ show_help() {
     echo "  --uninstall   Remove dbtools from $INSTALL_DIR"
     echo "  --help        Show this help message"
     echo ""
-    echo "After installation, you can run 'dbtools' from anywhere:"
-    echo "  dbtools dump -u root -d mydb"
-    echo "  dbtools restore -u root -d mydb -f backup.sql"
+    echo "After installation, run 'dbtools --help' to see available commands."
 }
 
 install() {
+    show_banner
+    echo "Installing dbtools..."
+    
     if [ ! -f "$SCRIPT_DIR/dbtools.sh" ]; then
         echo "Error: dbtools.sh not found in $SCRIPT_DIR"
         exit 1
@@ -42,10 +65,11 @@ install() {
     ln -s "$SCRIPT_DIR/dbtools.sh" "$INSTALL_DIR/$EXECUTABLE"
     
     if [ $? -eq 0 ]; then
-        echo "Installed successfully!"
-        echo "You can now run 'dbtools' from anywhere."
         echo ""
-        echo "Try: dbtools --help"
+        echo -e "${YELLOW}Installed successfully!${NC}"
+        echo ""
+        echo "To get started, run:"
+        echo "  dbtools --help"
     else
         echo "Error: Failed to create symlink"
         exit 1
@@ -53,6 +77,9 @@ install() {
 }
 
 uninstall() {
+    show_banner
+    echo "Uninstalling dbtools..."
+    
     if [ ! -L "$INSTALL_DIR/$EXECUTABLE" ]; then
         echo "dbtools is not installed in $INSTALL_DIR"
         exit 1
@@ -68,7 +95,8 @@ uninstall() {
     rm "$INSTALL_DIR/$EXECUTABLE"
     
     if [ $? -eq 0 ]; then
-        echo "Uninstalled successfully!"
+        echo ""
+        echo -e "${YELLOW}Uninstalled successfully!${NC}"
     else
         echo "Error: Failed to remove symlink"
         exit 1
