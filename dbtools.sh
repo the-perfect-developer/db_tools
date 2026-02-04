@@ -4,8 +4,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPTS_FOLDER="$SCRIPT_DIR/scripts"
 
 declare -A COMMAND_MAP
-COMMAND_MAP["dump"]="db_dumper.sh:Dump a MySQL database"
-COMMAND_MAP["restore"]="db_restore.sh:Restore a MySQL database from a SQL file"
+COMMAND_MAP["dump"]="dump.sh:Dump a MySQL database"
+COMMAND_MAP["restore"]="restore.sh:Restore a MySQL database from a SQL file"
 
 get_available_commands() {
     local commands=()
@@ -17,9 +17,9 @@ get_available_commands() {
 }
 
 show_help() {
-    echo "db-tools - MySQL database dump and restore utilities"
+    echo "dbtools - MySQL database dump and restore utilities"
     echo ""
-    echo "Usage: ./db-tools.sh <command> [options]"
+    echo "Usage: ./dbtools.sh <command> [options]"
     echo ""
     echo "Commands:"
     
@@ -30,7 +30,7 @@ show_help() {
     done
     
     echo ""
-    echo "Run './db-tools.sh <command> --help' for more information on a command."
+    echo "Run './dbtools.sh <command> --help' for more information on a command."
 }
 
 resolve_script() {

@@ -28,10 +28,10 @@ brew install mysql-client pv
 
 ## Usage
 
-Use the unified `db-tools.sh` command:
+Use the unified `dbtools.sh` command:
 
 ```bash
-./db-tools.sh <command> [options]
+./dbtools.sh <command> [options]
 
 Commands:
   dump      Dump a MySQL database
@@ -42,14 +42,14 @@ Commands:
 
 ```bash
 # Dump a database
-./db-tools.sh dump -u root -d mydb
+./dbtools.sh dump -u root -d mydb
 
 # Restore a database
-./db-tools.sh restore -u root -d mydb -f backup.sql
+./dbtools.sh restore -u root -d mydb -f backup.sql
 
 # Get help
-./db-tools.sh --help
-./db-tools.sh dump --help
+./dbtools.sh --help
+./dbtools.sh dump --help
 ```
 
 ## Commands
@@ -59,7 +59,7 @@ Commands:
 Dump a MySQL database with optional table filtering.
 
 ```bash
-./db-tools.sh dump [OPTIONS]
+./dbtools.sh dump [OPTIONS]
 ```
 
 **Options:**
@@ -80,16 +80,16 @@ Dump a MySQL database with optional table filtering.
 
 ```bash
 # Basic dump with default 500 record limit
-./db-tools.sh dump -u root -d mydb
+./dbtools.sh dump -u root -d mydb
 
 # Dump with custom record limit
-./db-tools.sh dump -u root -d mydb --limit=1000
+./dbtools.sh dump -u root -d mydb --limit=1000
 
 # Dump with specific tables to be dumped fully
-./db-tools.sh dump -u root -d mydb -t users,orders,products
+./dbtools.sh dump -u root -d mydb -t users,orders,products
 
 # Full example with all options
-./db-tools.sh dump -u root -p secret -h 192.168.1.100 -P 3306 -d mydb -o backup.sql -l 2000 -t users,orders
+./dbtools.sh dump -u root -p secret -h 192.168.1.100 -P 3306 -d mydb -o backup.sql -l 2000 -t users,orders
 ```
 
 ### restore
@@ -97,7 +97,7 @@ Dump a MySQL database with optional table filtering.
 Restore a MySQL database from a SQL file.
 
 ```bash
-./db-tools.sh restore [OPTIONS]
+./dbtools.sh restore [OPTIONS]
 ```
 
 **Options:**
@@ -116,10 +116,10 @@ Restore a MySQL database from a SQL file.
 
 ```bash
 # Basic restore
-./db-tools.sh restore -u root -d mydb -f backup.sql
+./dbtools.sh restore -u root -d mydb -f backup.sql
 
 # Restore to remote server
-./db-tools.sh restore -u root -p secret -h 192.168.1.100 -P 3306 -d mydb -f backup.sql
+./dbtools.sh restore -u root -p secret -h 192.168.1.100 -P 3306 -d mydb -f backup.sql
 ```
 
 ## How It Works
@@ -138,6 +138,10 @@ Restore a MySQL database from a SQL file.
 1. Creates the database if it doesn't exist
 2. Converts MySQL 8.0+ collations to compatible ones for older versions
 3. Imports the SQL file with progress display
+
+## Author
+
+**Dilan D Chandrajith** - [The Perfect Developer](https://github.com/the-perfect-developer)
 
 ## License
 
