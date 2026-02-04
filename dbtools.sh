@@ -23,6 +23,8 @@ show_banner() {
 EOF
     echo -e "${NC}"
     echo -e "${DIM}MySQL Database Utilities${NC} ${YELLOW}v${VERSION}${NC}"
+    echo -e "${DIM}By Dilan D Chandrajith - The Perfect Developer${NC}"
+    echo -e "${DIM}https://github.com/the-perfect-developer${NC}"
     echo ""
 }
 
