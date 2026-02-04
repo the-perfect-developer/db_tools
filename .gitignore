@@ -1,0 +1,16 @@
+# SQL dump files
+*.sql
+
+# Progress tracking files
+*.progress
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
