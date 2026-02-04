@@ -22,11 +22,11 @@ fi
 case "$1" in
     dump)
         shift
-        "$SCRIPT_DIR/db_dumper.sh" "$@"
+        "$SCRIPT_DIR/scripts/db_dumper.sh" "$@"
         ;;
     restore)
         shift
-        "$SCRIPT_DIR/db_restore.sh" "$@"
+        "$SCRIPT_DIR/scripts/db_restore.sh" "$@"
         ;;
     --help|-h|help)
         show_help
