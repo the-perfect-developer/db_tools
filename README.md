@@ -73,16 +73,20 @@ Use the unified `dbtools.sh` command:
 Commands:
   dump      Dump a MySQL database
   restore   Restore a MySQL database from a SQL file
+  update    Update dbtools to the latest version
 ```
 
 **Examples:**
 
 ```bash
 # Dump a database
-./dbtools.sh dump -u root -d mydb
+dbtools dump -u root -d mydb
 
 # Restore a database
-./dbtools.sh restore -u root -d mydb -f backup.sql
+dbtools restore -u root -d mydb -f backup.sql
+
+# Update to latest version
+dbtools update
 
 # Get help
 ./dbtools.sh --help
